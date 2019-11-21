@@ -266,7 +266,7 @@ setInterval(function(){
     console.log(JSON.parse(response.body))
     access_token = JSON.parse(response.body).access_token;
   });
-}, 3600);
+}, 200000);
 
 //LEVANTANDO EL SERVER EXPRESS-------------------------
 app.listen(4000);
