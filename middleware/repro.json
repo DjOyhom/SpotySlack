@@ -1,0 +1,99 @@
+{ 
+    "channel" : "CQ9273B6G",
+    "blocks": [
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Reproductor - Volumen: " + v + "\n Tus creditos: " + credits
+            }
+        },
+        {
+            "type": "divider"
+        },
+        {
+            "type": "section",
+            "text": {
+            "type": "mrkdwn",
+            "text": "*"+ nameMusic + " - " + artistMusic +"*" + playlist
+            }
+        },
+        {
+            "type": "actions",
+            "elements": [
+                {
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "⬅",
+                        "emoji": true
+                    },
+                    "value": "previous"
+                },
+                {
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "⏸",
+                        "emoji": true
+                    },
+                    "value": "pause"
+                },
+                {
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "➡",
+                        "emoji": true
+                    },
+                    "value": "next"
+                },
+                {
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "⬆",
+                        "emoji": true
+                    },
+                    "value": "up"
+                },
+                {
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "⬇",
+                    "emoji": true
+                    },
+                    "value": "down"
+                },
+                {
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "🔂",
+                        "emoji": true
+                    },
+                    "value": "repeatone"
+                },
+                {
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "🔇",
+                        "emoji": true
+                    },
+                    "value": "mute"
+                },
+                {
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "🔍",
+                        "emoji": true
+                    },
+                    "value": "search"
+                }
+            ]
+        }
+    ]  
+}
