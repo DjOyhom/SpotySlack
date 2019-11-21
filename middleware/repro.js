@@ -4,226 +4,231 @@ module.exports = function repro(access_token, callback){
 
     var blocks = [];
     var botones = [];
-    getInfoRepro(access_token, function(uri, context, volumen, repeat, imagen, album, artistas, nameMusic, isPlay, playlist, credits, idMusic, random){
-        var artistMusic = "";
-        for (let i = 0; i < artistas.length; i++) {
-            artistMusic = artistMusic + artistas [i] + " - ";
-        }
-        if(volumen != 0 && context == "playlist"){
+    try {
+        
+        getInfoRepro(access_token, function(uri, context, volumen, repeat, imagen, album, artistas, nameMusic, isPlay, playlist, credits, idMusic, random){
+            var artistMusic = "";
+            for (let i = 0; i < artistas.length; i++) {
+                artistMusic = artistMusic + artistas [i] + " - ";
+            }
+            if(volumen != 0 && context == "playlist"){
+                blocks.push({
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "Reproductor - Volumen: " + volumen +"% \nTus creditos: "+ credits+ "\n\n *"+ nameMusic + "* - " + artistMusic.substring(0, artistMusic.length - 3) + " \nPlaylist: " + playlist 
+                    },
+                    "accessory": {
+                        "type": "image",
+                        "image_url": imagen,
+                        "alt_text": album
+                    }
+                });
+            }else if(volumen != 0 && context != "playlist"){
+                blocks.push({
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "Reproductor - Volumen: " + volumen +"% \nTus creditos: "+ credits+ "\n\n *"+ nameMusic + "* - " + artistMusic.substring(0, artistMusic.length - 3)
+                    },
+                    "accessory": {
+                        "type": "image",
+                        "image_url": imagen,
+                        "alt_text": album
+                    }
+                });
+            }else if(volumen == 0 && context == "playlist"){
+                blocks.push({
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "Reproductor - Volumen: 🔇 \nTus creditos: "+ credits+ "\n\n *"+ nameMusic + "* - " + artistMusic.substring(0, artistMusic.length - 3) + " \nPlaylist: " + playlist
+                    },
+                    "accessory": {
+                        "type": "image",
+                        "image_url": imagen,
+                        "alt_text": album
+                    }
+                });
+            }else if(volumen == 0 && context != "playlist"){
+                blocks.push({
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "Reproductor - Volumen: 🔇 \nTus creditos: "+ credits+ "\n\n *"+ nameMusic + "* - " + artistMusic.substring(0, artistMusic.length - 3)
+                    },
+                    "accessory": {
+                        "type": "image",
+                        "image_url": imagen,
+                        "alt_text": album
+                    }
+                });
+            }
+            botones.push({
+                "type": "button",
+                "text": {
+                    "type": "plain_text",
+                    "text": "⬅",
+                    "emoji": true
+                },
+                "value": "previous"
+            });
+            if (isPlay == true) {
+                botones.push({
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "⏸",
+                        "emoji": true
+                    },
+                    "value": "pause"
+                });  
+            }else{
+                botones.push({
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "▶",
+                        "emoji": true
+                    },
+                    "value": "play"
+                });  
+            }
+            botones.push({
+                "type": "button",
+                "text": {
+                    "type": "plain_text",
+                    "text": "➡",
+                    "emoji": true
+                },
+                "value": "next"
+            });
+            botones.push({
+                "type": "button",
+                "text": {
+                    "type": "plain_text",
+                    "text": "⬆",
+                    "emoji": true
+                },
+                "value": "up"
+            });
+            botones.push({
+                "type": "button",
+                "text": {
+                    "type": "plain_text",
+                    "text": "⬇",
+                    "emoji": true
+                },
+                "value": "down"
+            });
+            if(repeat == "off"){
+                botones.push({
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "🔁",
+                        "emoji": true
+                    },
+                    "value": "repeatcon"
+                });
+            }else if(repeat == "track"){
+                botones.push({
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "🔜",
+                        "emoji": true
+                    },
+                    "value": "repeatoff"
+                });
+            }else{
+                botones.push({
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "🔂",
+                        "emoji": true
+                    },
+                    "value": "repeatone"
+                });
+            }
+            if (random == false) {
+                botones.push({
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "🔀",
+                        "emoji": true
+                    },
+                    "value": "randomon" 
+                });
+            }else{
+                botones.push({
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "〰",
+                        "emoji": true
+                    },
+                    "value": "randomoff" 
+                });
+            }
+            if(volumen >= 1){
+                botones.push({
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "🔇",
+                        "emoji": true
+                    },
+                    "value": "mute"
+                });
+            }else{
+                botones.push({
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "💯",
+                        "emoji": true
+                    },
+                    "value": "100"
+                });
+            }
+            botones.push({
+                "type": "button",
+                "text": {
+                    "type": "plain_text",
+                    "text": "☑",
+                    "emoji": true
+                },
+                "value": "add:" + idMusic 
+            });
+            blocks.push({
+                "type": "actions",
+                "elements": botones
+            });
+            var ran = "off";
+            if (random == true) {
+                ran = "on";
+            }
+            var rep = "off";
+            if (repeat == "track") {
+                rep = "1";
+            }else if(repeat == "context"){
+                rep = "all"
+            }
             blocks.push({
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "Reproductor - Volumen: " + volumen +"% \nTus creditos: "+ credits+ "\n\n *"+ nameMusic + "* - " + artistMusic.substring(0, artistMusic.length - 3) + " \nPlaylist: " + playlist 
-                },
-                "accessory": {
-                    "type": "image",
-                    "image_url": imagen,
-                    "alt_text": album
+                    "text": "*Aleatorio: " + ran + " - Repetir: " + rep + "*"
                 }
-            });
-        }else if(volumen != 0 && context != "playlist"){
-            blocks.push({
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "Reproductor - Volumen: " + volumen +"% \nTus creditos: "+ credits+ "\n\n *"+ nameMusic + "* - " + artistMusic.substring(0, artistMusic.length - 3)
-                },
-                "accessory": {
-                    "type": "image",
-                    "image_url": imagen,
-                    "alt_text": album
-                }
-            });
-        }else if(volumen == 0 && context == "playlist"){
-            blocks.push({
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "Reproductor - Volumen: 🔇 \nTus creditos: "+ credits+ "\n\n *"+ nameMusic + "* - " + artistMusic.substring(0, artistMusic.length - 3) + " \nPlaylist: " + playlist
-                },
-                "accessory": {
-                    "type": "image",
-                    "image_url": imagen,
-                    "alt_text": album
-                }
-            });
-        }else if(volumen == 0 && context != "playlist"){
-            blocks.push({
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "Reproductor - Volumen: 🔇 \nTus creditos: "+ credits+ "\n\n *"+ nameMusic + "* - " + artistMusic.substring(0, artistMusic.length - 3)
-                },
-                "accessory": {
-                    "type": "image",
-                    "image_url": imagen,
-                    "alt_text": album
-                }
-            });
-        }
-        botones.push({
-            "type": "button",
-            "text": {
-                "type": "plain_text",
-                "text": "⬅",
-                "emoji": true
-            },
-            "value": "previous"
+            })
+            callback(blocks);
         });
-        if (isPlay == true) {
-            botones.push({
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": "⏸",
-                    "emoji": true
-                },
-                "value": "pause"
-            });  
-        }else{
-            botones.push({
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": "▶",
-                    "emoji": true
-                },
-                "value": "play"
-            });  
-        }
-        botones.push({
-            "type": "button",
-            "text": {
-                "type": "plain_text",
-                "text": "➡",
-                "emoji": true
-            },
-            "value": "next"
-        });
-        botones.push({
-            "type": "button",
-            "text": {
-                "type": "plain_text",
-                "text": "⬆",
-                "emoji": true
-            },
-            "value": "up"
-        });
-        botones.push({
-            "type": "button",
-            "text": {
-                "type": "plain_text",
-                "text": "⬇",
-            "emoji": true
-            },
-            "value": "down"
-        });
-        if(repeat == "off"){
-            botones.push({
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": "🔁",
-                    "emoji": true
-                },
-                "value": "repeatcon"
-            });
-        }else if(repeat == "track"){
-            botones.push({
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": "🔜",
-                    "emoji": true
-                },
-                "value": "repeatoff"
-            });
-        }else{
-            botones.push({
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": "🔂",
-                    "emoji": true
-                },
-                "value": "repeatone"
-            });
-        }
-        if (random == false) {
-            botones.push({
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": "🔀",
-                    "emoji": true
-                },
-                "value": "randomon" 
-            });
-        }else{
-            botones.push({
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": "〰",
-                    "emoji": true
-                },
-                "value": "randomoff" 
-            });
-        }
-        if(volumen >= 1){
-            botones.push({
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": "🔇",
-                    "emoji": true
-                },
-                "value": "mute"
-            });
-        }else{
-            botones.push({
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": "💯",
-                    "emoji": true
-                },
-                "value": "100"
-            });
-        }
-        botones.push({
-            "type": "button",
-            "text": {
-                "type": "plain_text",
-                "text": "☑",
-                "emoji": true
-            },
-            "value": "add:" + idMusic 
-        });
-        blocks.push({
-            "type": "actions",
-            "elements": botones
-        });
-        var ran = "off";
-        if (random == true) {
-            ran = "on";
-        }
-        var rep = "off";
-        if (repeat == "track") {
-            rep = "1";
-        }else if(repeat == "context"){
-            rep = "all"
-        }
-        blocks.push({
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "*Aleatorio: " + ran + " - Repetir: " + rep + "*"
-			}
-		})
-        callback(blocks);
-    });
+    } catch (error) {
+        
+    }
 }
 
 function getPlaylist(access_token, uri, callback){
