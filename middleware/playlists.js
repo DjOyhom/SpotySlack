@@ -14,7 +14,6 @@ module.exports = function playlists(uri, music, access_token, callback){
       }
     };
     request(data, function (error, response) {
-        console.log(JSON.parse(response.body));
         len = JSON.parse(response.body).items.length;
         for (var i = 0; i < len -1; i++) {
             if (music == null) {

@@ -5,7 +5,6 @@ module.exports = function repro(access_token, callback){
     var blocks = [];
     var botones = [];
     try {
-        
         getInfoRepro(access_token, function(uri, context, volumen, repeat, imagen, album, artistas, nameMusic, isPlay, playlist, credits, idMusic, random){
             var artistMusic = "";
             for (let i = 0; i < artistas.length; i++) {
@@ -281,18 +280,26 @@ function getInfoRepro(access_token, callback){
             } catch (error) {  
                 console.log("No hay playlist reproduciendose"); 
             }
-            console.log(JSON.parse(response.body))
-            random = JSON.parse(response.body).shuffle_state;
-            repeat = JSON.parse(response.body).repeat_state;
-            volumen = JSON.parse(response.body).device.volume_percent;  
-            imagen = JSON.parse(response.body).item.album.images[0].url;
-            album = JSON.parse(response.body).item.album.name;
-            isPlay = JSON.parse(response.body).is_playing;
-            nameMusic = JSON.parse(response.body).item.name;
-            idMusic = JSON.parse(response.body).item.uri;
-            
-            for (let i = 0; i < JSON.parse(response.body).item.artists.length; i++) {
-                artistas.push(JSON.parse(response.body).item.artists[i].name);
+            console.log(response.body)
+            try {
+                random = JSON.parse(response.body).shuffle_state;
+                repeat = JSON.parse(response.body).repeat_state;
+                volumen = JSON.parse(response.body).device.volume_percent;  
+                imagen = JSON.parse(response.body).item.album.images[0].url;
+                album = JSON.parse(response.body).item.album.name;
+                isPlay = JSON.parse(response.body).is_playing;
+                nameMusic = JSON.parse(response.body).item.name;
+                idMusic = JSON.parse(response.body).item.uri;
+            } catch (error) {
+                console.log("wh");
+            }
+            try {
+                for (let i = 0; i < JSON.parse(response.body).item.artists.length; i++) {
+                    artistas.push(JSON.parse(response.body).item.artists[i].name);
+                }
+                
+            } catch (error) {
+                
             }
             getCreditos(function(credits){
                 if (uri != null) {
