@@ -1,12 +1,12 @@
-var express = require('express'); // Express web server framework
-var request = require('request'); // "Request" library
+var express = require('express'); 
+var request = require('request');
 var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var sem = require('semaphore')(1);
 
-//middleware-----------------------------
+//middleware-----modulos------------------------
 var repro = require("./middleware/repro");
 var reproS = require("./middleware/reproS");
 var check = require("./middleware/check");
@@ -318,7 +318,6 @@ app.post('/playlists', function(req, res) {
   });
 });
 
-
 app.post('/newplay', function(req, res) {
   check(access_token, function(active){
     if(active == true){
@@ -351,6 +350,7 @@ app.post('/newplay', function(req, res) {
   });
 });
 
+//////////////////////////////////////////////////////////
 //Analizadores req////////////////////////////////////////
 app.get('/viewer', function(req, res) {
 });
@@ -358,7 +358,9 @@ app.get('/viewer', function(req, res) {
 app.post('/viewer', function(req, res) {
   console.log(req.body);
 });
+//////////////////////////////////////////////////////////
 
+//FUNCION PARA LA ACTUALIZACION DEL TOKEN DE SPOTIFY//////
 setInterval(function(){ 
   console.log(refresh_token)
   var data = {
@@ -375,6 +377,6 @@ setInterval(function(){
     access_token = JSON.parse(response.body).access_token;
   });
 }, 200000);
-
+//////////////////////////////////////////////////////////
 //LEVANTANDO EL SERVER EXPRESS-------------------------
 app.listen(3000);
