@@ -20,6 +20,7 @@ module.exports = function reproS(access_token, callback){
                 }
             };
             request(dataRepro, function (error, response) { 
+                console.log(response.body);
                 var artistMusic = ""; 
                 for (let i = 0; i < JSON.parse(response.body).item.artists.length; i++) {
                     artistMusic = artistMusic + JSON.parse(response.body).item.artists[i].name + " - ";
@@ -73,6 +74,7 @@ module.exports = function reproS(access_token, callback){
                 }
             };
             request(dataPlaylist, function (error, response) { 
+                console.log(response);
                 playlist = JSON.parse(response.body).name;
                 sem.leave();
             });

@@ -16,8 +16,22 @@ var playlists = require("./middleware/playlists");
 var device = require("./middleware/device");
 //librerias
 
+//////////////////////////////////
+//NUEVAS IDEAS///////////////////
+//LOS BOTONES DEL REPRO TENDRIAN QUE 
+//UPDATEAR EL ULTIMO MENSAJE DEL REPRO
+//CUANDO LLEGA EL POST DE SLACK A REPRO
+//GUARDAR EN UNA VARIABLE EL TS DEL JSON
+//Y DEPUES CUANDO CMD ARME EL MENSAJE,
+//QUE SEA UN UPDATE DE ESE ULTIMO MENSAJE
+//EL MENSAJE DEL REPRO TENDRIA QUE SER UN 
+//POST PARA PODER EDITARLO, Y COMO RESPUESTA 
+//AL POST DE SLACK, MANDAR UN MENSAJE CON 
+//LOS CREDITOS DEL USUARIO
+/////////////////////////////////////////
+
 //token slack//////////////////////////
-var token ="csfNz51zxAKO2M9yhtEaklIQ";
+var token ="";
 //////////////////////////////////////
 //TOKEN API USUARIOS//////////////////
 var tokenU = "fnsduijwru895:734u98u4hrn2oefrj:9384hr9n2m3emfoe-wdsdsdsdsdsjfad9032*m89rjfw";
@@ -25,8 +39,8 @@ var tokenU = "fnsduijwru895:734u98u4hrn2oefrj:9384hr9n2m3emfoe-wdsdsdsdsdsjfad90
 
 //variables de configuracion de la app de spotify
 var code;
-var client_id = '4c1fff6c0d524d518abaac9eeb7ccc6a'; // Your client id
-var client_secret = '63e5214f20474092bb997144c0729462'; // Your secret
+var client_id = '9bd9909c43244659a7238efff9370538'; // Your client id
+var client_secret = '9cf9f6a1671043d6aa37201856acd03c'; // Your secret
 var redirect_uri = 'http://alterspace.ddns.net:3000/callback'; // Your redirect uri
 var scope = 'user-modify-playback-state user-read-private playlist-read-private user-library-modify playlist-read-collaborative playlist-modify-private user-follow-modify user-read-currently-playing user-read-email user-library-read user-top-read playlist-modify-public user-follow-read user-read-playback-state user-read-recently-played';
 var volumen = 100;
