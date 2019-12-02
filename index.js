@@ -28,6 +28,7 @@ var device = require("./middleware/device");
 //POST PARA PODER EDITARLO, Y COMO RESPUESTA 
 //AL POST DE SLACK, MANDAR UN MENSAJE CON 
 //LOS CREDITOS DEL USUARIO
+//https://api.slack.com/methods/chat.update/test
 /////////////////////////////////////////
 
 //token slack//////////////////////////
